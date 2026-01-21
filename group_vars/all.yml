@@ -1,0 +1,7 @@
+haproxy_ip: "192.168.33.92"
+team_members:
+  - { name: "Widad" }
+  - { name: "Yunan" }
+  - { name: "Niko" }
+  - { name: "Haikal" }
+  - { name: "Yesa" }

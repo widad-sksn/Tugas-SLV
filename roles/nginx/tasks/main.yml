@@ -1,0 +1,33 @@
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Hapus Default Config
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Config Nginx Port {{ port_web }}
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/conf.d/web3.conf
+  notify: Restart Nginx
+
+- name: Copy index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+
+- name: Copy date.html
+  template:
+    src: date.html.j2
+    dest: /var/www/html/date.html
+
+# TASK BARU: COPY MONITORING DASHBOARD
+- name: Copy monitor.html
+  template:
+    src: monitor.html.j2
+    dest: /var/www/html/monitor.html

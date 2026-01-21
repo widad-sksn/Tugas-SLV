@@ -1,0 +1,13 @@
+[lb]
+192.168.33.92 hostname=haproxy_server
+
+[web_apache]
+192.168.33.93 hostname=web1 port_web=8080
+192.168.33.94 hostname=web2 port_web=8080
+
+[web_nginx]
+192.168.33.95 hostname=web3 port_web=3000
+
+[webservers:children]
+web_apache
+web_nginx

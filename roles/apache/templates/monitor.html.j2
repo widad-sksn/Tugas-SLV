@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Command Center - Kelompok 5</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0b1120; color: #e2e8f0; font-family: 'JetBrains Mono', monospace; margin: 0; padding: 20px; min-height: 100vh; }
+        
+        .navbar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1e293b; padding-bottom: 20px; margin-bottom: 40px; }
+        .brand { font-size: 1.5rem; font-weight: bold; color: #38bdf8; display: flex; align-items: center; gap: 10px; }
+        .live-indicator { color: #22c55e; font-size: 0.8rem; border: 1px solid #22c55e; padding: 5px 10px; border-radius: 4px; animation: blink 2s infinite; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        
+        /* CARD STYLE */
+        .card { background: #151e32; border: 1px solid #334155; border-radius: 8px; padding: 25px; position: relative; overflow: hidden; }
+        .card-header { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; display: flex; justify-content: space-between; }
+        .card-value { font-size: 2.5rem; font-weight: bold; color: #f8fafc; margin-bottom: 5px; }
+        .card-sub { font-size: 0.8rem; color: #64748b; }
+        
+        /* SERVER NODES */
+        .node-list { display: flex; flex-direction: column; gap: 15px; }
+        .node-item { background: #1e293b; padding: 15px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #334155; transition: 0.3s; }
+        .node-item:hover { border-left-color: #38bdf8; transform: translateX(5px); }
+        .node-name { font-weight: bold; color: #e2e8f0; }
+        .node-ip { font-size: 0.8rem; color: #94a3b8; }
+        .status-up { background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        
+        /* ANIMATED GRAPH (FAKE VISUALIZATION) */
+        .bars { display: flex; gap: 5px; align-items: flex-end; height: 60px; margin-top: 20px; }
+        .bar { width: 100%; background: #38bdf8; opacity: 0.7; border-radius: 2px; animation: equalize 1s infinite ease-in-out; }
+        
+        @keyframes equalize { 0% { height: 20%; } 50% { height: 100%; } 100% { height: 20%; } }
+        @keyframes blink { 50% { opacity: 0.5; } }
+        
+        .btn-raw { display: inline-block; margin-top: 30px; text-decoration: none; color: #64748b; border: 1px dashed #475569; padding: 10px 20px; border-radius: 5px; transition: 0.3s; }
+        .btn-raw:hover { color: #e2e8f0; border-color: #e2e8f0; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand"><i class="fas fa-satellite-dish"></i> HAPROXY COMMAND CENTER</div>
+        <div class="live-indicator">● SYSTEM LIVE</div>
+    </div>
+
+    <div class="grid-container">
+        <div class="card">
+            <div class="card-header">
+                <span>Total Requests</span>
+                <i class="fas fa-chart-area" style="color: #38bdf8;"></i>
+            </div>
+            <div class="card-value" id="reqCount">1,240</div>
+            <div class="card-sub">Requests per second routed</div>
+            <div class="bars">
+                <div class="bar" style="animation-duration: 0.5s"></div>
+                <div class="bar" style="animation-duration: 0.7s"></div>
+                <div class="bar" style="animation-duration: 0.4s"></div>
+                <div class="bar" style="animation-duration: 0.8s"></div>
+                <div class="bar" style="animation-duration: 0.6s"></div>
+                <div class="bar" style="animation-duration: 0.5s"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>Load Balancing Strategy</span>
+                <i class="fas fa-balance-scale" style="color: #a855f7;"></i>
+            </div>
+            <div class="card-value" style="color: #a855f7;">ROUND ROBIN</div>
+            <div class="card-sub">Active Distribution Algorithm</div>
+            <div style="margin-top: 20px; padding: 15px; background: rgba(168, 85, 247, 0.1); border-radius: 5px; border: 1px solid rgba(168, 85, 247, 0.2);">
+                <i class="fas fa-check-circle"></i> Distribution is optimal across 3 nodes.
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-header">
+                <span>Active Backend Nodes</span>
+                <i class="fas fa-server" style="color: #22c55e;"></i>
+            </div>
+            <div class="node-list">
+                <div class="node-item">
+                    <div>
+                        <div class="node-name"><i class="fas fa-hdd"></i> WEB 1 (APACHE)</div>
+                        <div class="node-ip">192.168.33.93 : 8080</div>
+                    </div>
+                    <div class="status-up">ONLINE</div>
+                </div>
+                <div class="node-item">
+                    <div>
+                        <div class="node-name"><i class="fas fa-hdd"></i> WEB 2 (APACHE)</div>
+                        <div class="node-ip">192.168.33.94 : 8080</div>
+                    </div>
+                    <div class="status-up">ONLINE</div>
+                </div>
+                <div class="node-item">
+                    <div>
+                        <div class="node-name"><i class="fab fa-envira"></i> WEB 3 (NGINX)</div>
+                        <div class="node-ip">192.168.33.95 : 3000</div>
+                    </div>
+                    <div class="status-up">ONLINE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <center>
+        <a href="http://192.168.33.92:1936" target="_blank" class="btn-raw">
+            <i class="fas fa-external-link-alt"></i> BUKA DATA MENTAH (RAW STATS)
+        </a>
+        <br><br>
+        <a href="/" style="color: #64748b; text-decoration: none;">&larr; Kembali ke Dashboard Utama</a>
+    </center>
+
+    <script>
+        // Simulasi Angka Bergerak Biar Terlihat Canggih
+        setInterval(() => {
+            let base = 1200;
+            let random = Math.floor(Math.random() * 100);
+            document.getElementById('reqCount').innerText = (base + random).toLocaleString();
+        }, 2000);
+    </script>
+</body>
+</html>

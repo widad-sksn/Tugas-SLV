@@ -1,0 +1,39 @@
+---
+- name: Install Apache2
+  apt:
+    name: apache2
+    state: present
+    update_cache: yes
+
+- name: Set Port Apache ke {{ port_web }}
+  lineinfile:
+    path: /etc/apache2/ports.conf
+    regexp: '^Listen '
+    line: "Listen {{ port_web }}"
+
+- name: Fix VirtualHost Port
+  replace:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '<VirtualHost \*:80>'
+    replace: '<VirtualHost *:{{ port_web }}>'
+
+- name: Copy index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+
+- name: Copy date.html
+  template:
+    src: date.html.j2
+    dest: /var/www/html/date.html
+
+# TASK BARU: COPY MONITORING DASHBOARD
+- name: Copy monitor.html
+  template:
+    src: monitor.html.j2
+    dest: /var/www/html/monitor.html
+
+- name: Restart Apache
+  service:
+    name: apache2
+    state: restarted

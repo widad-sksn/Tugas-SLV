@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Set Timezone to Asia/Jakarta
+      timezone:
+        name: Asia/Jakarta
+    - name: Refresh Facts
+      setup: 
+        filter: "ansible_date_time"
+
+- hosts: web_apache
+  roles:
+    - apache
+
+- hosts: web_nginx
+  roles:
+    - nginx
+
+- hosts: lb
+  roles:
+    - haproxy

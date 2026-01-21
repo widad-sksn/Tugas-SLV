@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ inventory_hostname }} - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .container { width: 100%; max-width: 900px; padding: 20px; }
+        
+        .card { 
+            background: #1e293b; border: 1px solid #334155; border-radius: 16px; 
+            padding: 50px; box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.6); position: relative; overflow: hidden; 
+        }
+        
+        .card::top { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: #3b82f6; } 
+
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; border-bottom: 2px solid #334155; padding-bottom: 30px; }
+        
+        .status-badge { 
+            background: rgba(59, 130, 246, 0.1); color: #60a5fa; padding: 8px 20px; 
+            border-radius: 30px; font-size: 1rem; font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.2); 
+        }
+        .pulse { display: inline-block; width: 12px; height: 12px; background: #60a5fa; border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px #60a5fa; }
+        
+        h1 { margin: 0; font-size: 3rem; color: #f8fafc; font-weight: 800; letter-spacing: -1px; }
+        .subtitle { color: #94a3b8; font-size: 1.3rem; margin-top: 5px; font-weight: 300; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 40px; }
+        .info-box { background: #0f172a; padding: 25px; border-radius: 12px; border: 1px solid #334155; }
+        
+        .label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #64748b; margin-bottom: 10px; font-weight: 600; }
+        .value { font-size: 2rem; font-weight: 700; color: #f1f5f9; font-family: monospace; }
+        .highlight { color: #60a5fa; }
+
+        .btn-group { display: flex; gap: 20px; }
+        .btn { 
+            flex: 1; padding: 18px; border-radius: 10px; text-decoration: none; 
+            font-weight: 700; text-align: center; font-size: 1.1rem; transition: 0.2s; 
+        }
+        .btn-primary { background: #3b82f6; color: white; border: 1px solid #2563eb; }
+        .btn-primary:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+        .btn-outline { background: transparent; border: 2px solid #475569; color: #cbd5e1; }
+        .btn-outline:hover { border-color: #94a3b8; color: white; background: #334155; }
+
+        .footer { margin-top: 40px; text-align: center; border-top: 1px solid #334155; padding-top: 20px; }
+        .team-title { font-size: 0.9rem; color: #64748b; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .team-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .member-badge { 
+            background: #0f172a; color: #94a3b8; padding: 8px 20px; border-radius: 50px; 
+            font-size: 1rem; border: 1px solid #334155; font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: #3b82f6;"></div>
+            
+            <div class="header">
+                <div>
+                    <h1>{{ inventory_hostname | upper }}</h1>
+                    <div class="subtitle">Apache Web Server Node</div>
+                </div>
+                <div class="status-badge"><span class="pulse"></span> SYSTEM ONLINE</div>
+            </div>
+
+            <div class="grid">
+                <div class="info-box">
+                    <div class="label">IP Address</div>
+                    <div class="value highlight">{{ ansible_default_ipv4.address }}</div>
+                </div>
+                <div class="info-box">
+                    <div class="label">Service Port</div>
+                    <div class="value">{{ port_web }}</div>
+                </div>
+                <div class="info-box" style="grid-column: span 2;">
+                    <div class="label">Load Balancing Strategy</div>
+                    <div class="value">HAProxy Round Robin</div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <a href="/date.html" class="btn btn-outline"><i class="far fa-clock"></i> Cek Waktu</a>
+                <a href="/monitor.html" target="_blank" class="btn btn-primary"><i class="fas fa-chart-line"></i> Monitoring Data</a>
+            </div>
+
+            <div class="footer">
+                <div class="team-title">Kelompok 5 Team Member</div>
+                <div class="team-container">
+                    {% for member in team_members %}
+                    <div class="member-badge">{{ member.name }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
