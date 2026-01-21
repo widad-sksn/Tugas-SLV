@@ -42,11 +42,11 @@ Sistem ini menggabungkan dua jenis web server berbeda (**Apache & Nginx**) di be
 
 | Role | Hostname | IP Address | Service Port | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| **Controller** | `ansible-control` | `192.168.33.28` | - | Node Pengendali Utama |
-| **Load Balancer** | `haproxy_server` | `192.168.33.29` | **80** | Gateway Utama & Traffic Distributor |
-| **Web Server 1** | `web1` | `192.168.33.30` | 8080 | Backend Apache (Blue) |
-| **Web Server 2** | `web2` | `192.168.33.31` | 8080 | Backend Apache (Blue) |
-| **Web Server 3** | `web3` | `192.168.33.32` | 3000 | Backend Nginx (Green) |
+| **Controller** | `ansible-control` | `192.168.33.91` | - | Node Pengendali Utama |
+| **Load Balancer** | `haproxy_server` | `192.168.33.92` | **80** | Gateway Utama & Traffic Distributor |
+| **Web Server 1** | `web1` | `192.168.33.93` | 8080 | Backend Apache (Blue) |
+| **Web Server 2** | `web2` | `192.168.33.94` | 8080 | Backend Apache (Blue) |
+| **Web Server 3** | `web3` | `192.168.33.95` | 3000 | Backend Nginx (Green) |
 
 ---
 
