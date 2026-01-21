@@ -15,11 +15,11 @@
 
 | NIM | Nama | Role |
 | :--- | :--- | :--- |
-| **[NIM_WIDAD]** | **Widad** | **Team Lead / DevOps Engineer** |
-| [NIM_YUNAN] | Yunan | System Administrator |
-| [NIM_NIKO] | Niko | Network Engineer |
-| [NIM_HAIKAL] | Haikal | Security Analyst |
-| [NIM_YESA] | Yesa | Documentation Specialist |
+| **[NIM_WIDAD]** | **Widad** | **CEO** |
+| [NIM_YUNAN] | Yunan | pemukul |
+| [NIM_NIKO] | Niko | penasehat |
+| [NIM_HAIKAL] | Haikal | pemukul |
+| [NIM_YESA] | Yesa | pemakan |
 
 ---
 
